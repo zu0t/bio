@@ -1,0 +1,247 @@
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            display: flex;  
+            justify-content: center;
+            align-items: center;
+        }
+        img {
+            user-drag: none;
+            -webkit-user-drag: none;
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+
+        #backgroundVideo {
+            position: fixed;
+            top: 0;
+             left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+        
+        @keyframes slideIn {
+  			from {
+    		transform: translateY(-140%);
+    		opacity: 0;
+  		}
+  			to {
+    		transform: translateY(0);
+    		opacity: 1;
+  			}
+		}
+        
+        .ramecek {
+            width: 400px;
+            padding: 30px;
+            background-color: rgba(0, 0, 15, 0.7);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-family: Arial, sans-serif;
+            z-index: 1;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transform: translateY(-140%);
+  			animation: slideIn 2s ease forwards;
+        }
+
+        .ramecek img {
+            max-width: 100%;
+        }
+
+        .ramecek .hlavni-obrazek {
+            border-radius: 50%;
+            width: 200px;
+            height: 200px; 
+            object-fit: cover;
+        }
+
+        .obrazky {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            gap: 5px;
+        }
+
+        .obrazky a {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .obrazky a:hover {
+            transform: scale(1.2);
+        }
+
+        .obrazky img {
+            width: 100%;
+            max-width: 90px;
+        }
+        
+        .title {
+            font-size: 34px;
+            transition: 1.5s;
+            height: 40px;
+            line-height: 40px;
+            color: white;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        .title:hover {
+            color: white; 
+            font-size: 40px;
+            animation: colorChange 8s infinite; 
+        }
+
+        @keyframes colorChange {
+            0% {
+                color: #04041a;
+            }
+            5% {
+                color: #01024f;
+            }
+            10% {
+                color: #050759;
+            }
+            15% {
+                color: #07086e;
+            }
+            20% {
+                color: #0a0c80;
+            }
+            25% {
+                color: #0e108f;
+            }
+            30% {
+                color: #1214a1;
+            }
+            35% {
+                color: #191bb0;
+            }
+            40% {
+                color: #1e20ba;
+            }
+            45% {
+                color: #2326c4;
+            }
+            50% {
+                color: #2b2ecf;
+            }
+            55% {
+                color: #2f32c4;
+            }
+            60% {
+                color: #2f32b5;
+            }
+            65% {
+                color: #2e30a3;
+            }
+            70% {
+                color: #2a2c8c;
+            }
+            75% {
+                color: #232478;
+            }
+            80% {
+                color: #1c1e69;
+            }
+            85% {
+                color: #161754;
+            }
+            90% {
+                color: #111247;
+            }
+            95% {
+                color: #0b0c36;
+            }
+            100% {
+                color: #06071f;
+            }
+        }
+        .podtitle {
+            font-size: 16px;
+            transition: 2.5s;
+            height: 16px;
+            line-height: 16px;
+            color: white;
+            align: center;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .podtitle:hover {
+            color: #0b124f; 
+            transform: scale(1.1);
+        }
+        
+        .spotify-frame {
+            background-color: #002840;
+            padding: 15px;
+            border-radius: 15px;
+            width: 365px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .album-cover img {
+            width: 150px;
+            border-radius: 7px;
+            transition: transform 0.3s;
+        }
+        
+        .album-cover:hover img {
+            transform: scale(1.1);
+        }
+
+        .song-details {
+            flex: 2;
+            margin-left: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .song-details a {
+            color: inherit;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .song-title {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 5px;
+            transition: transform 0.3s;
+        }
+        .song-title:hover {
+            transform: scale(1.03);
+        }
+
+        .song-artist {
+            color: gray;
+            font-size: 14px;
+            margin-bottom: 10px;
+            transition: transform 0.3s;
+        }
+        .song-artist:hover {
+            transform: scale(1.03);
+        }
+
+        .song-details audio {
+            width: 100%;
+        }
