@@ -1,5 +1,4 @@
-// oneko.js: https://github.com/adryd325/oneko.js
-
+// made by: oneko.js: https://github.com/adryd325/oneko.js
 (async function oneko() {
   const nekoEl = document.createElement("div");
   let nekoPosX = 32,
