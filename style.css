@@ -1,4 +1,4 @@
- body, html {
+        body, html {
             height: 100%;
             margin: 0;
             padding: 0;
@@ -91,7 +91,7 @@
             max-width: 90px;
         }
         
-.title {
+        .title {
             font-size: 34px;
             height: 40px;
             line-height: 40px;
@@ -128,75 +128,75 @@
                 transform: rotate(0deg);
             }
         }
-.podtitle {
-    font-size: 16px;
-    transition: 2.5s;
-    height: 16px;
-    line-height: 16px;
-    color: white;
-    align: center;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-.podtitle:hover {
-    color: #0b124f; 
-    transform: scale(1.1);
-}
+        .podtitle {
+            font-size: 16px;
+            transition: 2.5s;
+            height: 16px;
+            line-height: 16px;
+            color: white;
+            align: center;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .podtitle:hover {
+            color: #0b124f; 
+            transform: scale(1.1);
+        }
+        
+        .spotify-frame {
+            background-color: #002840;
+            padding: 15px;
+            border-radius: 15px;
+            width: 365px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
 
-.spotify-frame {
-    background-color: #002840;
-    padding: 15px;
-    border-radius: 15px;
-    width: 365px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-}
+        .album-cover img {
+            width: 150px;
+            border-radius: 7px;
+            transition: transform 0.3s;
+        }
+        
+        .album-cover:hover img {
+            transform: scale(1.1);
+        }
 
-.album-cover img {
-    width: 150px;
-    border-radius: 7px;
-    transition: transform 0.3s;
-}
+        .song-details {
+            flex: 2;
+            margin-left: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .song-details a {
+            color: inherit;
+            text-decoration: none;
+            font-family: inherit;
+        }
 
-.album-cover:hover img {
-    transform: scale(1.1);
-}
+        .song-title {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 5px;
+            transition: transform 0.3s;
+        }
+        .song-title:hover {
+            transform: scale(1.03);
+        }
 
-.song-details {
-    flex: 2;
-    margin-left: 10px;
-    display: flex;
-    flex-direction: column;
-}
+        .song-artist {
+            color: gray;
+            font-size: 14px;
+            margin-bottom: 10px;
+            transition: transform 0.3s;
+        }
+        .song-artist:hover {
+            transform: scale(1.03);
+        }
 
-.song-details a {
-    color: inherit;
-    text-decoration: none;
-    font-family: inherit;
-}
-
-.song-title {
-    color: white;
-    font-size: 18px;
-    margin-bottom: 5px;
-    transition: transform 0.3s;
-}
-.song-title:hover {
-    transform: scale(1.03);
-}
-
-.song-artist {
-    color: gray;
-    font-size: 14px;
-    margin-bottom: 10px;
-    transition: transform 0.3s;
-}
-.song-artist:hover {
-    transform: scale(1.03);
-}
-
-.song-details audio {
-    width: 100%;
-}
+        .song-details audio {
+            width: 100%;
+        }
