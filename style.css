@@ -1,97 +1,96 @@
-<style>        body, html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-    display: flex;  
-    justify-content: center;
-    align-items: center;
-}
+ body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            display: flex;  
+            justify-content: center;
+            align-items: center;
+        }
+        img {
+            user-drag: none;
+            -webkit-user-drag: none;
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
 
-img {
-    user-drag: none;
-    -webkit-user-drag: none;
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-}
+        #backgroundVideo {
+            position: fixed;
+            top: 0;
+             left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+        
+        @keyframes slideIn {
+  			from {
+    		transform: translateY(-140%);
+    		opacity: 0;
+  		}
+  			to {
+    		transform: translateY(0);
+    		opacity: 1;
+  			}
+		}
+        
+        .ramecek {
+            width: 400px;
+            padding: 30px;
+            background-color: rgba(0, 0, 15, 0.7);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-family: Arial, sans-serif;
+            z-index: 1;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transform: translateY(-140%);
+  			animation: slideIn 2s ease forwards;
+        }
 
-#backgroundVideo {
-    position: fixed;
-    top: 0;
-     left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    pointer-events: none;
-}
+        .ramecek img {
+            max-width: 100%;
+        }
 
-@keyframes slideIn {
-      from {
-    transform: translateY(-140%);
-    opacity: 0;
-  }
-      to {
-    transform: translateY(0);
-    opacity: 1;
-      }
-}
+        .ramecek .hlavni-obrazek {
+            border-radius: 50%;
+            width: 200px;
+            height: 200px; 
+            object-fit: cover;
+        }
 
-.ramecek {
-    width: 400px;
-    padding: 30px;
-    background-color: rgba(0, 0, 15, 0.7);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    color: white;
-    font-family: Arial, sans-serif;
-    z-index: 1;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    transform: translateY(-140%);
-      animation: slideIn 2s ease forwards;
-}
+        .obrazky {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            gap: 5px;
+        }
 
-.ramecek img {
-    max-width: 100%;
-}
+        .obrazky a {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
 
-.ramecek .hlavni-obrazek {
-    border-radius: 50%;
-    width: 200px;
-    height: 200px; 
-    object-fit: cover;
-}
+        .obrazky a:hover {
+            transform: scale(1.2);
+        }
 
-.obrazky {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    gap: 5px;
-}
-
-.obrazky a {
-    display: inline-block;
-    transition: transform 0.3s ease;
-}
-
-.obrazky a:hover {
-    transform: scale(1.2);
-}
-
-.obrazky img {
-    width: 100%;
-    max-width: 90px;
-}
-
+        .obrazky img {
+            width: 100%;
+            max-width: 90px;
+        }
+        
 .title {
             font-size: 34px;
             height: 40px;
