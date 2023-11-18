@@ -15,7 +15,7 @@
     grabStop = true,
     nudge = false,
     kuroNeko = false,
-    variant = "classic";
+    variant = "maia";
 
   function parseLocalStorage(key, fallback) {
     try {
