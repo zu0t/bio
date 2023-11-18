@@ -103,87 +103,42 @@ img {
 }
 
 .title {
-    font-size: 34px;
-    transition: 1.5s;
-    height: 40px;
-    line-height: 40px;
-    color: white;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
+            font-size: 34px;
+            height: 40px;
+            line-height: 40px;
+            color: white;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            text-transform: none;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            display: inline-block;
+            text-decoration: none;
+        }
 
-.title:hover {
-    color: white; 
-    font-size: 40px;
-    animation: colorChange 8s infinite; 
-}
-
-@keyframes colorChange {
-    0% {
-        color: #04041a;
-    }
-    5% {
-        color: #01024f;
-    }
-    10% {
-        color: #050759;
-    }
-    15% {
-        color: #07086e;
-    }
-    20% {
-        color: #0a0c80;
-    }
-    25% {
-        color: #0e108f;
-    }
-    30% {
-        color: #1214a1;
-    }
-    35% {
-        color: #191bb0;
-    }
-    40% {
-        color: #1e20ba;
-    }
-    45% {
-        color: #2326c4;
-    }
-    50% {
-        color: #2b2ecf;
-    }
-    55% {
-        color: #2f32c4;
-    }
-    60% {
-        color: #2f32b5;
-    }
-    65% {
-        color: #2e30a3;
-    }
-    70% {
-        color: #2a2c8c;
-    }
-    75% {
-        color: #232478;
-    }
-    80% {
-        color: #1c1e69;
-    }
-    85% {
-        color: #161754;
-    }
-    90% {
-        color: #111247;
-    }
-    95% {
-        color: #0b0c36;
-    }
-    100% {
-        color: #06071f;
-    }
-}
+        @keyframes textEffect {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+                transform: rotate(0deg);
+            }
+            25% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 255, 255, 0.7);
+                transform: rotate(5deg);
+            }
+            50% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 30px rgba(255, 255, 255, 0.7);
+                transform: rotate(0deg);
+            }
+            75% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 255, 255, 0.7);
+                transform: rotate(-5deg);
+            }
+            100% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+                transform: rotate(0deg);
+            }
+        }
 .podtitle {
     font-size: 16px;
     transition: 2.5s;
@@ -733,8 +688,8 @@ img {
     console.log(arr);
 
     variant = arr[0];
-    localStorage.setItem("oneko:variant", `"${variant}"`);
-    nekoEl.style.backgroundImage = `url('https://raw.githubusercontent.com/kyrie25/spicetify-oneko/main/assets/oneko/oneko-${variant}.gif')`;
+    localStorage.setItem("oneko:variant", `"${arr}"`);
+    nekoEl.style.backgroundImage = `url('https://raw.githubusercontent.com/kyrie25/spicetify-oneko/main/assets/oneko/oneko-${arr}.gif')`;
   }
 
   // Popup modal to choose variant
@@ -905,6 +860,37 @@ function isMobileDevice() {
           e.preventDefault();
         }
       });
+      document.addEventListener('DOMContentLoaded', function () {
+            const title = document.querySelector('.title');
+
+            function toggleCase() {
+                const text = title.textContent;
+                let modifiedText = '';
+
+                for (let i = 0; i < text.length; i++) {
+                    const isUppercase = Math.random() < 0.5;
+                    modifiedText += isUppercase ? text[i].toUpperCase() : text[i].toLowerCase();
+                }
+
+                title.textContent = modifiedText;
+
+                // Náhodné rozhodnutí pro Bold, underline, italic, strikethrough
+                const style = [
+                    Math.random() < 0.5 ? 'bold' : 'normal',
+                    Math.random() < 0.5 ? 'underline' : 'none',
+                    Math.random() < 0.5 ? 'italic' : 'normal',
+                    Math.random() < 0.5 ? 'line-through' : 'none'
+                ];
+
+                title.style.fontWeight = style.includes('bold') ? 'bold' : 'normal';
+                title.style.textDecoration = style.includes('underline') ? 'underline' : 'none';
+                title.style.fontStyle = style.includes('italic') ? 'italic' : 'normal';
+                title.style.textDecorationLine = style.includes('line-through') ? 'line-through' : 'none';
+            }
+
+            setInterval(toggleCase, 200); // Střídání každé 2 sekundy
+        });
+
 const asciiArt = `
 ███████╗██╗   ██╗ ██████╗ ████████╗
 ╚══███╔╝██║   ██║██╔═══██╗╚══██╔══╝
@@ -914,6 +900,9 @@ const asciiArt = `
 ╚══════╝ ╚═════╝  ╚═════╝    ╚═╝   
                                                                       
 `;
+
+console.log(asciiArt);
+</script>
 
 console.log(asciiArt);
 </script>
