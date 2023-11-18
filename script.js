@@ -15,7 +15,7 @@
     grabStop = true,
     nudge = false,
     kuroNeko = false,
-    variant = "maia";
+    variant = "classic";
 
   function parseLocalStorage(key, fallback) {
     try {
@@ -106,7 +106,7 @@
     kuroNeko = parseLocalStorage("kuroneko", false);
 
     if (!variants.some((v) => v[0] === variant)) {
-      variant = "classic";
+      variant = "maia";
     }
 
     nekoEl.id = "oneko";
