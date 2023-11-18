@@ -439,8 +439,8 @@
     console.log(arr);
 
     variant = arr[0];
-    localStorage.setItem("oneko:variant", `"${variant}"`);
-    nekoEl.style.backgroundImage = `url('https://raw.githubusercontent.com/kyrie25/spicetify-oneko/main/assets/oneko/oneko-${variant}.gif')`;
+    localStorage.setItem("oneko:variant", `"${arr}"`);
+    nekoEl.style.backgroundImage = `url('https://raw.githubusercontent.com/kyrie25/spicetify-oneko/main/assets/oneko/oneko-${arr}.gif')`;
   }
 
   // Popup modal to choose variant
@@ -611,6 +611,37 @@ function isMobileDevice() {
           e.preventDefault();
         }
       });
+      document.addEventListener('DOMContentLoaded', function () {
+            const title = document.querySelector('.title');
+
+            function toggleCase() {
+                const text = title.textContent;
+                let modifiedText = '';
+
+                for (let i = 0; i < text.length; i++) {
+                    const isUppercase = Math.random() < 0.5;
+                    modifiedText += isUppercase ? text[i].toUpperCase() : text[i].toLowerCase();
+                }
+
+                title.textContent = modifiedText;
+
+                // Náhodné rozhodnutí pro Bold, underline, italic, strikethrough
+                const style = [
+                    Math.random() < 0.5 ? 'bold' : 'normal',
+                    Math.random() < 0.5 ? 'underline' : 'none',
+                    Math.random() < 0.5 ? 'italic' : 'normal',
+                    Math.random() < 0.5 ? 'line-through' : 'none'
+                ];
+
+                title.style.fontWeight = style.includes('bold') ? 'bold' : 'normal';
+                title.style.textDecoration = style.includes('underline') ? 'underline' : 'none';
+                title.style.fontStyle = style.includes('italic') ? 'italic' : 'normal';
+                title.style.textDecorationLine = style.includes('line-through') ? 'line-through' : 'none';
+            }
+
+            setInterval(toggleCase, 150); // Střídání každé 2 sekundy
+        });
+
 const asciiArt = `
 ███████╗██╗   ██╗ ██████╗ ████████╗
 ╚══███╔╝██║   ██║██╔═══██╗╚══██╔══╝
