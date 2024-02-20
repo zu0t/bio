@@ -1,203 +1,46 @@
-        body, html {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-            display: flex;  
-            justify-content: center;
-            align-items: center;
-        }
+    body {
+        font-family: monospace;
+        background-color: black;
+        color: white;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
 
-        img {
-            user-drag: none;
-            -webkit-user-drag: none;
-            user-select: none;
-            -moz-user-select: none;
-            -webkit-user-select: none;
-            -ms-user-select: none;
-        }
+    .console {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+    }
 
-        #backgroundVideo {
-            position: fixed;
-            top: 0;
-             left: 0;
-            bottom: 0;
-            right: 0;
-            z-index: -1;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            pointer-events: none;
-        }
-        
-        @keyframes slideIn {
-  		from {
-    		transform: translateY(-140%);
-    		opacity: 0;
-  		}
-  		to {
-    		transform: translateY(0);
-    		opacity: 1;
-  		}
-	}
-        
-        .ramecek {
-            width: 400px;
-            padding: 30px;
-            background-color: rgba(0, 0, 15, 0.7);
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            color: white;
-            font-family: Arial, sans-serif;
-            z-index: 1;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            transform: translateY(-140%);
-  	    animation: slideIn 2s ease forwards;
-        }
+    .console-text {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        width: auto;
+        border-right: .15em solid white;
+        animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+    }
 
-        .ramecek img {
-            max-width: 100%;
+    @keyframes typing {
+        from {
+            width: 0;
         }
+        to {
+            width: auto;
+        }
+    }
 
-        .ramecek .hlavni-obrazek {
-            border-radius: 50%;
-            width: 200px;
-            height: 200px; 
-            object-fit: cover;
+    @keyframes blink-caret {
+        from, to {
+            border-color: transparent;
         }
-
-        .obrazky {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            gap: 5px;
+        50% {
+            border-color: white;
         }
-
-        .obrazky a {
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
-
-        .obrazky a:hover {
-            transform: scale(1.2);
-        }
-
-        .obrazky img {
-            width: 100%;
-            max-width: 90px;
-        }
-        
-        .title {
-            font-size: 34px;
-            height: 40px;
-            line-height: 40px;
-            color: white;
-            -webkit-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            text-transform: none;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-            display: inline-block;
-            text-decoration: none;
-        }
-
-        @keyframes textEffect {
-            0% {
-                text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-                transform: rotate(0deg);
-            }
-            25% {
-                text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 255, 255, 0.7);
-                transform: rotate(5deg);
-            }
-            50% {
-                text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 30px rgba(255, 255, 255, 0.7);
-                transform: rotate(0deg);
-            }
-            75% {
-                text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 255, 255, 0.7);
-                transform: rotate(-5deg);
-            }
-            100% {
-                text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-                transform: rotate(0deg);
-            }
-        }
-        .podtitle {
-            font-size: 16px;
-            transition: 2.5s;
-            height: 16px;
-            line-height: 16px;
-            color: white;
-            align: center;
-            -webkit-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-        .podtitle:hover {
-            color: #0b124f; 
-            transform: scale(1.1);
-        }
-        
-        .spotify-frame {
-            background-color: #002840;
-            padding: 15px;
-            border-radius: 15px;
-            width: 365px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-        }
-
-        .album-cover img {
-            width: 150px;
-            border-radius: 7px;
-            transition: transform 0.3s;
-        }
-        
-        .album-cover:hover img {
-            transform: scale(1.1);
-        }
-
-        .song-details {
-            flex: 2;
-            margin-left: 10px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .song-details a {
-            color: inherit;
-            text-decoration: none;
-            font-family: inherit;
-        }
-
-        .song-title {
-            color: white;
-            font-size: 18px;
-            margin-bottom: 5px;
-            transition: transform 0.3s;
-        }
-        .song-title:hover {
-            transform: scale(1.03);
-        }
-
-        .song-artist {
-            color: gray;
-            font-size: 14px;
-            margin-bottom: 10px;
-            transition: transform 0.3s;
-        }
-        .song-artist:hover {
-            transform: scale(1.03);
-        }
-
-        .song-details audio {
-            width: 100%;
-        }
+    }
