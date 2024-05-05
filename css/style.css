@@ -149,6 +149,35 @@ a:focus {
   color: #ffffff;
 }
 
+.navbar-brand span:hover {
+  animation: colorChange 2s
+}
+
+@keyframes colorChange {
+  0% {color: #ffffff}
+  5% {color: rgb(192, 193, 202)}
+  10% {color: rgb(173, 175, 209)}
+  15% {color: rgb(159, 162, 203)}
+  20% {color: rgb(145, 147, 196)}
+  25% {color: rgb(130, 133, 190)}
+  30% {color: rgb(115, 117, 184)}
+  35% {color: rgb(96, 98, 167)}
+  40% {color: rgb(78, 80, 150)}
+  45% {color: rgb(64, 66, 137)}
+  50% {color: rgb(50, 52, 124)}
+  50% {color: rgb(50, 52, 124)}
+  55% {color: rgb(64, 66, 137)}
+  60% {color: rgb(78, 80, 150)}
+  65% {color: rgb(96, 98, 167)}
+  70% {color: rgb(115, 117, 184)}
+  75% {color: rgb(130, 133, 190)}
+  80% {color: rgb(145, 147, 196)}
+  85% {color: rgb(159, 162, 203)}
+  90% {color: rgb(173, 175, 209)}
+  95% {color: rgb(192, 193, 202)}
+  100% {color: #ffffff}
+}
+
 .custom_nav-container {
   padding: 0;
 }
@@ -273,7 +302,7 @@ a:focus {
 }
 
 .slider_section .detail-box {
-  color: #00204a;
+  color: #ffffff;
 }
 
 .slider_section .detail-box h1 {
@@ -281,8 +310,37 @@ a:focus {
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 15px;
-  color: #ffffff;
 }
+
+.slider_section .detail-box h1:hover {
+  animation: colorChange 2s
+}
+/*I had to use chatgpt to rotate me the colors :sob: 1 h4t3 my l1f3*/
+@keyframes colorChange {
+  0% {color: #ffffff}
+  5% {color: rgb(192, 193, 202)}
+  10% {color: rgb(173, 175, 209)}
+  15% {color: rgb(159, 162, 203)}
+  20% {color: rgb(145, 147, 196)}
+  25% {color: rgb(130, 133, 190)}
+  30% {color: rgb(115, 117, 184)}
+  35% {color: rgb(96, 98, 167)}
+  40% {color: rgb(78, 80, 150)}
+  45% {color: rgb(64, 66, 137)}
+  50% {color: rgb(50, 52, 124)}
+  50% {color: rgb(50, 52, 124)}
+  55% {color: rgb(64, 66, 137)}
+  60% {color: rgb(78, 80, 150)}
+  65% {color: rgb(96, 98, 167)}
+  70% {color: rgb(115, 117, 184)}
+  75% {color: rgb(130, 133, 190)}
+  80% {color: rgb(145, 147, 196)}
+  85% {color: rgb(159, 162, 203)}
+  90% {color: rgb(173, 175, 209)}
+  95% {color: rgb(192, 193, 202)}
+  100% {color: #ffffff}
+}
+
 
 .slider_section .detail-box p {
   color: #fefefe;
