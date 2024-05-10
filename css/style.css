@@ -315,7 +315,7 @@ a:focus {
 .slider_section .detail-box h1:hover {
   animation: colorChange 2s
 }
-/*I had to use chatgpt to rotate me the colors :sob: 1 h4t3 my l1f3*/
+
 @keyframes colorChange {
   0% {color: #ffffff}
   5% {color: rgb(192, 193, 202)}
@@ -674,16 +674,6 @@ a:focus {
   padding: 0 15px;
 }
 
-.team_section .team_container .box {
-  padding: 35px 0 0 0;
-  border-radius: 5px;
-  overflow: hidden;
-  -webkit-transition: all .1s;
-  transition: all .1s;
-  margin-top: 45px;
-  background: -webkit-gradient(linear, left top, left bottom, from(#002759), to(#002b64));
-  background: linear-gradient(to bottom, #002759, #002b64);
-}
 
 .team_section .team_container .box .img-box {
   display: -webkit-box;
