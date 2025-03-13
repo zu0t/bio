@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Nerko+One&family=Patrick+Hand&family=Signika:wght@300..700&display=swap');
 body, html {
     height: 100%;
     margin: 0;
@@ -75,7 +76,9 @@ body, html {
 
 .info {
     text-align: left;
-    font-family: "Nerko One", cursive;
+    font-family: "Patrick Hand", cursive;
+    font-weight: 400;
+    font-style: normal;
 }
 
 #overlay {
@@ -98,7 +101,9 @@ body, html {
 }
 
 #overlay p {
-    font-family: "Nerko One", cursive;
+    font-family: "Patrick Hand", cursive;
+    font-weight: 400;
+    font-style: normal;
     padding: 20px;
     border-radius: 10px;
     margin: 0;
