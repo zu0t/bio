@@ -117,7 +117,7 @@ section { margin-bottom: 60px; }
 .play-btn {
     background-color: var(--primary-color); color: var(--background-color);
     width: 40px; height: 40px; border-radius: 50%; font-size: 1.2em;
-    display: flex; justify-content: center; align-items: center; 
+    display: flex; justify-content: center; align-items: center; padding-left: 9px; padding-top: 2px; 
 }
 .play-btn:hover { background-color: #fff; }
 .progress-container { display: flex; align-items: center; width: 100%; gap: 10px; font-size: 0.8em; color: var(--text-color); }
