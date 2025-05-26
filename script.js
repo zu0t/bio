@@ -1,85 +1,121 @@
-function typeText(element, text, speed) {
-  let index = 0;
-  const timer = setInterval(function() {
-      if (index < text.length) {
-          element.textContent += text[index];
-          index++;
-      } else {
-          clearInterval(timer);
-      }
-  }, speed);
-}
+document.addEventListener('DOMContentLoaded', () => {
 
-function animateText() {
-  const titleElement = document.querySelector(".title");
-  titleElement.style.opacity = '1';
-  typeText(titleElement, "zuot", 800);
-}
+    const audio = document.getElementById('background-music');
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    const playIcon = '<i class="fas fa-play"></i>';
+    const pauseIcon = '<i class="fas fa-pause"></i>';
+    const volumeSlider = document.getElementById('volume-slider');
+    const progressBar = document.getElementById('progress-bar');
+    const progress = document.getElementById('progress');
+    const currentTimeEl = document.getElementById('current-time');
+    const durationEl = document.getElementById('duration');
 
-function playMusic() {
-  var audio = document.getElementById("background-music");
-  audio.play();
-}
+    let isPlaying = false;
 
-function startScripts() {
-  playMusic();
+    function formatTime(seconds) {
+        if (isNaN(seconds)) return '0:00'; 
+        const minutes = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    }
 
-  setTimeout(function() {
-      animateText();
-  }, 20);
+    function togglePlayPause() {
+        if (!audio) return; 
+        if (isPlaying) {
+            audio.pause();
+        } else {
+            audio.play().catch(error => console.log("Play failed:", error));
+        }
 
-  const title = document.querySelector('.title');
-  function toggleCase() {
-      const text = title.textContent;
-      let modifiedText = '';
+    }
 
-      for (let i = 0; i < text.length; i++) {
-          const isUppercase = Math.random() < 0.5;
-          modifiedText += isUppercase ? text[i].toUpperCase() : text[i].toLowerCase();
-      }
+    function updateProgress() {
+        if (!audio || !audio.duration) return;
+        const progressPercent = (audio.currentTime / audio.duration) * 100;
+        progress.style.width = `${progressPercent}%`;
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+    }
 
-      title.textContent = modifiedText;
+    function setProgress(e) {
+        if (!audio || !audio.duration) return;
+        const width = this.clientWidth;
+        const clickX = e.offsetX;
+        audio.currentTime = (clickX / width) * audio.duration;
+    }
 
-      const style = [
-          Math.random() < 0.5 ? 'bold' : 'normal',
-          Math.random() < 0.5 ? 'underline' : 'none',
-          Math.random() < 0.5 ? 'italic' : 'normal',
-          Math.random() < 0.5 ? 'line-through' : 'none'
-      ];
+    if (audio) {
+        audio.addEventListener('loadedmetadata', () => {
+             durationEl.textContent = formatTime(audio.duration);
+        });
+        audio.addEventListener('timeupdate', updateProgress);
+        audio.addEventListener('play', () => { 
+            isPlaying = true; 
+            playPauseBtn.innerHTML = pauseIcon; 
+        });
+        audio.addEventListener('pause', () => { 
+            isPlaying = false; 
+            playPauseBtn.innerHTML = playIcon; 
+        });
+        audio.addEventListener('ended', () => {
+            playPauseBtn.innerHTML = playIcon;
+            isPlaying = false;
+            progress.style.width = '0%';
+            audio.currentTime = 0;
+            if(audio.loop) audio.play(); 
+        });
 
-      title.style.fontWeight = style.includes('bold') ? 'bold' : 'normal';
-      title.style.textDecoration = style.includes('underline') ? 'underline' : 'none';
-      title.style.fontStyle = style.includes('italic') ? 'italic' : 'normal';
-      title.style.textDecorationLine = style.includes('line-through') ? 'line-through' : 'none';
-  }
+        audio.volume = volumeSlider.value;
+        if (audio.paused) {
+            playPauseBtn.innerHTML = playIcon;
+            isPlaying = false;
+        } else {
+            playPauseBtn.innerHTML = pauseIcon;
+            isPlaying = true;
+        }
+        audio.load(); 
+    }
 
-  setInterval(toggleCase, 150);
-}
+    if (playPauseBtn) playPauseBtn.addEventListener('click', togglePlayPause);
+    if (volumeSlider) volumeSlider.addEventListener('input', () => { if(audio) audio.volume = volumeSlider.value; });
+    if (progressBar) progressBar.addEventListener('click', setProgress);
 
-document.addEventListener("DOMContentLoaded", function () {
-  const overlay = document.getElementById("overlay");
-  const ramecek = document.querySelector(".ramecek");
+    function wrapWordsAndLetters(element) {
+        const nodes = [...element.childNodes];
 
-  overlay.addEventListener("click", function() {
-      overlay.style.opacity = '0';
-      overlay.style.backdropFilter = 'blur(0)';
+        nodes.forEach(node => {
+            if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '') {
+                const fragment = document.createDocumentFragment();
+                const wordsAndSpaces = node.textContent.split(/(\s+)/);
 
-      ramecek.classList.add('show');
+                wordsAndSpaces.forEach(item => {
+                    if (item.match(/\s+/)) {
+                        fragment.appendChild(document.createTextNode(item));
+                    } else if (item.length > 0) {
+                        const wordSpan = document.createElement('span');
+                        wordSpan.className = 'word-wrapper';
 
-      setTimeout(function() {
-          overlay.remove();
-          startScripts();
-      }, 1000);
-  });
-});
+                        item.split('').forEach(char => {
+                            const letterSpan = document.createElement('span');
+                            letterSpan.className = 'letter-hover';
+                            letterSpan.textContent = char;
+                            wordSpan.appendChild(letterSpan);
+                        });
+                        fragment.appendChild(wordSpan);
+                    }
+                });
+                element.replaceChild(fragment, node);
+            } else if (node.nodeType === Node.ELEMENT_NODE && !node.classList.contains('letter-hover') && !node.classList.contains('word-wrapper')) {
+                wrapWordsAndLetters(node);
+            }
+        });
+    }
 
-const asciiArt = `
-SITE MADE BY:
-███████╗██╗   ██╗ ██████╗ ████████╗
-╚══███╔╝██║   ██║██╔═══██╗╚══██╔══╝
-  ███╔╝ ██║   ██║██║   ██║   ██║   
-███╔╝   ██║   ██║██║   ██║   ██║   
-███████╗╚██████╔╝╚██████╔╝   ██║   
-╚══════╝ ╚═════╝  ╚═════╝    ╚═╝ 
-`;
-console.log(asciiArt);
+    const elementsToAnimate = document.querySelectorAll(
+        '#hero h1, #hero .subtitle, #about h2, #about p, #glance h2, .widget h3, .widget p, #links h2, .cool-button span'
+    );
+
+    elementsToAnimate.forEach(el => {
+        wrapWordsAndLetters(el);
+    });
+
+}); 
