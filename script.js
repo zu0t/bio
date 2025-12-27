@@ -1,121 +1,80 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const audio = document.getElementById('background-music');
-    const playPauseBtn = document.getElementById('play-pause-btn');
+    const audio = document.getElementById('audio-source');
+    const playBtn = document.getElementById('fp-play-btn'); 
+
+    const progressBar = document.getElementById('fp-progress-bar'); 
+
+    const albumArt = document.querySelector('.fp-art'); 
+
     const playIcon = '<i class="fas fa-play"></i>';
     const pauseIcon = '<i class="fas fa-pause"></i>';
-    const volumeSlider = document.getElementById('volume-slider');
-    const progressBar = document.getElementById('progress-bar');
-    const progress = document.getElementById('progress');
-    const currentTimeEl = document.getElementById('current-time');
-    const durationEl = document.getElementById('duration');
 
     let isPlaying = false;
 
-    function formatTime(seconds) {
-        if (isNaN(seconds)) return '0:00'; 
-        const minutes = Math.floor(seconds / 60);
-        const secs = Math.floor(seconds % 60);
-        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
-    }
+    if (audio && playBtn) {
+        audio.volume = 0.5;
 
-    function togglePlayPause() {
-        if (!audio) return; 
-        if (isPlaying) {
-            audio.pause();
-        } else {
-            audio.play().catch(error => console.log("Play failed:", error));
-        }
-
-    }
-
-    function updateProgress() {
-        if (!audio || !audio.duration) return;
-        const progressPercent = (audio.currentTime / audio.duration) * 100;
-        progress.style.width = `${progressPercent}%`;
-        currentTimeEl.textContent = formatTime(audio.currentTime);
-    }
-
-    function setProgress(e) {
-        if (!audio || !audio.duration) return;
-        const width = this.clientWidth;
-        const clickX = e.offsetX;
-        audio.currentTime = (clickX / width) * audio.duration;
-    }
-
-    if (audio) {
-        audio.addEventListener('loadedmetadata', () => {
-             durationEl.textContent = formatTime(audio.duration);
-        });
-        audio.addEventListener('timeupdate', updateProgress);
-        audio.addEventListener('play', () => { 
-            isPlaying = true; 
-            playPauseBtn.innerHTML = pauseIcon; 
-        });
-        audio.addEventListener('pause', () => { 
-            isPlaying = false; 
-            playPauseBtn.innerHTML = playIcon; 
-        });
-        audio.addEventListener('ended', () => {
-            playPauseBtn.innerHTML = playIcon;
-            isPlaying = false;
-            progress.style.width = '0%';
-            audio.currentTime = 0;
-            if(audio.loop) audio.play(); 
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) audio.pause();
+            else audio.play();
         });
 
-        audio.volume = volumeSlider.value;
-        if (audio.paused) {
-            playPauseBtn.innerHTML = playIcon;
-            isPlaying = false;
-        } else {
-            playPauseBtn.innerHTML = pauseIcon;
+        audio.addEventListener('play', () => {
             isPlaying = true;
-        }
-        audio.load(); 
-    }
+            playBtn.innerHTML = pauseIcon;
+            albumArt.style.animationPlayState = 'running';
+        });
 
-    if (playPauseBtn) playPauseBtn.addEventListener('click', togglePlayPause);
-    if (volumeSlider) volumeSlider.addEventListener('input', () => { if(audio) audio.volume = volumeSlider.value; });
-    if (progressBar) progressBar.addEventListener('click', setProgress);
+        audio.addEventListener('pause', () => {
+            isPlaying = false;
+            playBtn.innerHTML = playIcon;
+            albumArt.style.animationPlayState = 'paused';
+        });
 
-    function wrapWordsAndLetters(element) {
-        const nodes = [...element.childNodes];
-
-        nodes.forEach(node => {
-            if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '') {
-                const fragment = document.createDocumentFragment();
-                const wordsAndSpaces = node.textContent.split(/(\s+)/);
-
-                wordsAndSpaces.forEach(item => {
-                    if (item.match(/\s+/)) {
-                        fragment.appendChild(document.createTextNode(item));
-                    } else if (item.length > 0) {
-                        const wordSpan = document.createElement('span');
-                        wordSpan.className = 'word-wrapper';
-
-                        item.split('').forEach(char => {
-                            const letterSpan = document.createElement('span');
-                            letterSpan.className = 'letter-hover';
-                            letterSpan.textContent = char;
-                            wordSpan.appendChild(letterSpan);
-                        });
-                        fragment.appendChild(wordSpan);
-                    }
-                });
-                element.replaceChild(fragment, node);
-            } else if (node.nodeType === Node.ELEMENT_NODE && !node.classList.contains('letter-hover') && !node.classList.contains('word-wrapper')) {
-                wrapWordsAndLetters(node);
+        audio.addEventListener('timeupdate', () => {
+            if(audio.duration) {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = `${percent}%`;
             }
         });
+
+        audio.addEventListener('ended', () => {
+             if(!audio.loop) {
+                 isPlaying = false;
+                 playBtn.innerHTML = playIcon;
+                 albumArt.style.animationPlayState = 'paused';
+             }
+        });
     }
 
-    const elementsToAnimate = document.querySelectorAll(
-        '#hero h1, #hero .subtitle, #about h2, #about p, #glance h2, .widget h3, .widget p, #links h2, .cool-button span'
-    );
+    const navItems = document.querySelectorAll('.nav-item');
+    const tabs = document.querySelectorAll('.content-tab');
 
-    elementsToAnimate.forEach(el => {
-        wrapWordsAndLetters(el);
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            navItems.forEach(n => n.classList.remove('active'));
+            item.classList.add('active');
+
+            const target = item.getAttribute('data-target');
+            tabs.forEach(t => t.classList.remove('active'));
+            document.getElementById(target).classList.add('active');
+        });
     });
 
-}); 
+    const cursor = document.getElementById('cursor');
+    if (window.matchMedia("(min-width: 600px)").matches) {
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('.hover-trigger, a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+        });
+    }
+    if (max-width <= "600px"){
+        document.getElementById("tab-header h2").style.margin = "-100px";
+    }
+});
