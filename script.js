@@ -1,80 +1,107 @@
-document.addEventListener('DOMContentLoaded', () => {
+const DISCORD_USER_ID = "742377986774270042";
 
-    const audio = document.getElementById('audio-source');
-    const playBtn = document.getElementById('fp-play-btn'); 
+function revealCards(){
+  const cards = document.querySelectorAll('.card');
+  cards.forEach((card, i) => {
+    setTimeout(() => card.classList.add('visible'), 120 * i);
+  });
+}
+document.addEventListener('DOMContentLoaded', revealCards);
 
-    const progressBar = document.getElementById('fp-progress-bar'); 
+let socket;
+let heartbeatInterval;
 
-    const albumArt = document.querySelector('.fp-art'); 
+function connectLanyard(){
+  socket = new WebSocket('wss://api.lanyard.rest/socket');
 
-    const playIcon = '<i class="fas fa-play"></i>';
-    const pauseIcon = '<i class="fas fa-pause"></i>';
+  socket.onopen = () => {
+    socket.send(JSON.stringify({
+      op: 2,
+      d: { subscribe_to_id: DISCORD_USER_ID }
+    }));
+  };
 
-    let isPlaying = false;
+  socket.onmessage = (event) => {
+    const payload = JSON.parse(event.data);
+    const { op, t, d } = payload;
 
-    if (audio && playBtn) {
-        audio.volume = 0.5;
+    switch (op) {
+      case 1:
+        heartbeatInterval = setInterval(() => {
+          if (socket.readyState === WebSocket.OPEN) {
+            socket.send(JSON.stringify({ op: 3 }));
+          }
+        }, d.heartbeat_interval);
+        break;
 
-        playBtn.addEventListener('click', () => {
-            if (isPlaying) audio.pause();
-            else audio.play();
-        });
-
-        audio.addEventListener('play', () => {
-            isPlaying = true;
-            playBtn.innerHTML = pauseIcon;
-            albumArt.style.animationPlayState = 'running';
-        });
-
-        audio.addEventListener('pause', () => {
-            isPlaying = false;
-            playBtn.innerHTML = playIcon;
-            albumArt.style.animationPlayState = 'paused';
-        });
-
-        audio.addEventListener('timeupdate', () => {
-            if(audio.duration) {
-                const percent = (audio.currentTime / audio.duration) * 100;
-                progressBar.style.width = `${percent}%`;
-            }
-        });
-
-        audio.addEventListener('ended', () => {
-             if(!audio.loop) {
-                 isPlaying = false;
-                 playBtn.innerHTML = playIcon;
-                 albumArt.style.animationPlayState = 'paused';
-             }
-        });
+      case 0:
+        if (t === 'INIT_STATE' || t === 'PRESENCE_UPDATE') {
+          updatePresence(d);
+        }
+        break;
     }
+  };
 
-    const navItems = document.querySelectorAll('.nav-item');
-    const tabs = document.querySelectorAll('.content-tab');
+  socket.onclose = () => {
+    clearInterval(heartbeatInterval);
+    setTimeout(connectLanyard, 5000);
+  };
 
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            navItems.forEach(n => n.classList.remove('active'));
-            item.classList.add('active');
+  socket.onerror = () => {
+    fetchLanyardOnce();
+  };
+}
 
-            const target = item.getAttribute('data-target');
-            tabs.forEach(t => t.classList.remove('active'));
-            document.getElementById(target).classList.add('active');
-        });
-    });
+function fetchLanyardOnce(){
+  fetch(`https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`)
+    .then(res => res.json())
+    .then(json => { if (json.success) updatePresence(json.data); })
+    .catch(err => console.warn('Lanyard REST fallback failed:', err));
+}
 
-    const cursor = document.getElementById('cursor');
-    if (window.matchMedia("(min-width: 600px)").matches) {
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
+function updatePresence(data){
+  if (!data) return;
 
-        document.querySelectorAll('.hover-trigger, a, button').forEach(el => {
-            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-        });
+  if (data.discord_user && data.discord_user.avatar) {
+    const { id, avatar } = data.discord_user;
+    const ext = avatar.startsWith('a_') ? 'gif' : 'png';
+    document.getElementById('avatar-img').src =
+      `https://cdn.discordapp.com/avatars/${id}/${avatar}.${ext}?size=128`;
+  }
+
+  const status = data.discord_status || 'offline';
+
+  const dot = document.getElementById('status-dot');
+  dot.classList.remove('online', 'idle', 'dnd', 'offline');
+  dot.classList.add(status);
+
+  const pill = document.getElementById('status-pill');
+  const pillText = document.getElementById('status-pill-text');
+  pill.classList.remove('online', 'idle', 'dnd', 'offline');
+  pill.classList.add(status);
+  const statusLabels = { online: 'Online', idle: 'Idle', dnd: 'Do Not Disturb', offline: 'Offline' };
+  pillText.textContent = statusLabels[status] || 'Offline';
+
+  const activityLine = document.getElementById('activity-line');
+  const activityText = document.getElementById('activity-text');
+
+  if (status === 'offline') {
+    activityLine.style.display = 'none';
+  } else if (data.listening_to_spotify && data.spotify) {
+    activityLine.style.display = 'flex';
+    activityText.textContent = `Listening to: ${data.spotify.song} — ${data.spotify.artist}`;
+  } else if (data.activities && data.activities.length > 0) {
+    const activity = data.activities.find(a => a.type !== 4) || data.activities[0]; // type 4 = custom status, skip it if possible
+    if (activity) {
+      const verbByType = { 0: 'Playing', 1: 'Streaming', 2: 'Listening to', 3: 'Watching', 5: 'Competing in' };
+      const verb = verbByType[activity.type] || 'Doing';
+      activityLine.style.display = 'flex';
+      activityText.textContent = `${verb}: ${activity.name}${activity.details ? ' — ' + activity.details : ''}`;
+    } else {
+      activityLine.style.display = 'none';
     }
-    if (max-width <= "600px"){
-        document.getElementById("tab-header h2").style.margin = "-100px";
-    }
-});
+  } else {
+    activityLine.style.display = 'none';
+  }
+}
+connectLanyard();
