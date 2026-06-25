@@ -4,99 +4,89 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>zuot</title>
-<meta name="description" content="zuot — bio page">
+<meta name="description" content="zuot">
 <link rel="icon" type="image/jpeg" href="./pfp.jpg">
-<meta property="og:title" content="zuot/zu0t/notzuot">
+<meta property="og:title" content="zuot">
 <meta property="og:description" content="Epic site, trust">
 <meta property="og:image" content="https://zuot.cc/pfp.jpg"> 
 <meta property="og:url" content="https://zuot.cc">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="ambient-glow one"></div>
-<div class="ambient-glow two"></div>
-<main class="container">
-  <section class="card header-card" id="card-header">
-    <div class="profile-banner"></div>
 
-    <div class="profile-body">
-      <div class="avatar-wrap">
-        <img class="avatar" id="avatar-img" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="zuot avatar">
-        <div class="status-dot offline" id="status-dot"></div>
+<canvas id="aurora"></canvas>
+<div class="page">
+  <div class="wrap">
+
+    <div class="block block-profile">
+      <div class="prof-body">
+        <div class="avatar-ring">
+          <img id="avatar-img" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="zuot">
+          <div class="status-dot" id="status-dot"></div>
+        </div>
+        <div class="prof-info">
+          <div class="prof-name">zuot</div>
+          <div class="prof-tag">I use arch btw</div>
+          <div class="prof-status offline" id="status-pill">
+            <span class="sdot"></span>
+            <span id="status-label">Offline</span>
+          </div>
+        </div>
       </div>
-      <div class="header-text">
-        <div class="name-row">
-          <h1 class="name">zuot</h1>
-          <span class="status-pill offline" id="status-pill">
-            <span class="pill-dot"></span>
-            <span id="status-pill-text">Offline</span>
-          </span>
-        </div>
-        <p class="tagline">18 yo retard</p>
-        <div class="activity-line" id="activity-line" style="display:none;">
-          <span class="activity-dot"></span>
-          <span id="activity-text">—</span>
-        </div>
+      <div class="activity" id="activity-bar">
+        <div class="activity-dot"></div>
+        <span id="activity-text" class="activity-text"></span>
       </div>
     </div>
-  </section>
-  <section class="card bio-card" id="card-bio">
-    <span class="bio-title">About me</span>
-    <p>
-      I write code (with the help of AI), break things, then fix them again (sometimes). I'm into low-level programming and automation. Off the
-      keyboard, I play Minecraft and collect useless technical knowledge (and minecraft capes).
-    </p>
-  </section>
-  <section class="links-grid" id="card-links">
 
-    <!-- GitHub -->
-    <a class="link-card" href="https://github.com/zu0t" target="_blank" rel="noopener noreferrer" style="--card-accent:#a78bfa;">
-      <span class="arrow">↗</span>
-      <div class="icon-wrap">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.207 11.387.6.113.793-.262.793-.578 0-.285-.01-1.04-.016-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.084-.729.084-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.776.42-1.305.763-1.605-2.665-.303-5.466-1.332-5.466-5.93 0-1.31.469-2.382 1.236-3.222-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.5 11.5 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.652.242 2.873.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.61-2.805 5.624-5.476 5.92.43.372.823 1.103.823 2.222 0 1.604-.015 2.896-.015 3.29 0 .319.192.694.801.576C20.566 21.795 24 17.298 24 12c0-6.63-5.37-12-12-12z"/></svg>
-      </div>
-      <div class="link-title">GitHub</div>
-      <div class="link-desc">@zu0t - code, repos, and everything else.</div>
-    </a>
+    <div class="block block-about">
+      <div class="label">about</div>
+      <p class="about-text">
+        Currently still in school and learning programming. I also have a part time job. I use arch btw (with hyprland). <br><br>Minimum AI was used for this site (mainly for js).
+      </p>
+    </div>
 
-    <!-- Discord -->
-    <a class="link-card" href="https://discord.com/users/742377986774270042" target="_blank" rel="noopener noreferrer" style="--card-accent:#5865f2;">
-      <span class="arrow">↗</span>
-      <div class="icon-wrap">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.07.07 0 0 0-.075.035c-.211.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.075-.035A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.076.076 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-      </div>
-      <div class="link-title">Discord</div>
-      <div class="link-desc">Message me directly.</div>
-    </a>
+    <div class="block block-links">
+      <div class="label">links</div>
 
-    <!-- NameMC / Minecraft -->
-    <a class="link-card" href="https://namemc.com/profile/zu0t" target="_blank" rel="noopener noreferrer" style="--card-accent:#5be8a4;">
-      <span class="arrow">↗</span>
-      <div class="icon-wrap">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 4l4 1v15l-4-1V4zm5 1.2l4-1.2 4 1.2V20l-4 1-4-1V5.2zm9-1.2l4-1 1 1v15l-1 1-4-1V4z"/></svg>
-      </div>
-      <div class="link-title">NameMC</div>
-      <div class="link-desc">Minecraft profile - skins, capes, names, and account history.</div>
-    </a>
+      <a class="link-item github" href="https://github.com/zu0t" target="_blank" rel="noopener">
+        <div class="link-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.207 11.387.6.113.793-.262.793-.578 0-.285-.01-1.04-.016-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.084-.729.084-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.776.42-1.305.763-1.605-2.665-.303-5.466-1.332-5.466-5.93 0-1.31.469-2.382 1.236-3.222-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.5 11.5 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.652.242 2.873.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.61-2.805 5.624-5.476 5.92.43.372.823 1.103.823 2.222 0 1.604-.015 2.896-.015 3.29 0 .319.192.694.801.576C20.566 21.795 24 17.298 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        </div>
+        <span class="link-label" data-name="GitHub" data-url="github.com/zu0t">GitHub</span>
+        <span class="link-arrow">↗</span>
+      </a>
 
-    <!-- Bypasser (my own project) -->
-    <a class="link-card" href="https://bypass.zuot.cc/" target="_blank" rel="noopener noreferrer" style="--card-accent:#4f9dff;">
-      <span class="arrow">↗</span>
-      <div class="icon-wrap">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
-      </div>
-      <div class="link-title">AutoMod Bypasser</div>
-      <div class="link-desc">Say anything anywhere - bypass.zuot.cc</div>
-    </a>
+      <a class="link-item discord" href="https://discord.com/users/742377986774270042" target="_blank" rel="noopener">
+        <div class="link-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.07.07 0 0 0-.075.035c-.211.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.075-.035A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.076.076 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+        </div>
+        <span class="link-label" data-name="Discord" data-url="discord.com/users/zuot">Discord</span>
+        <span class="link-arrow">↗</span>
+      </a>
 
-  </section>
+      <a class="link-item namemc" href="https://namemc.com/profile/zu0t" target="_blank" rel="noopener">
+        <div class="link-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 4l4 1v15l-4-1V4zm5 1.2l4-1.2 4 1.2V20l-4 1-4-1V5.2zm9-1.2l4-1 1 1v15l-1 1-4-1V4z"/></svg>
+        </div>
+        <span class="link-label" data-name="NameMC" data-url="namemc.com/profile/zu0t">NameMC</span>
+        <span class="link-arrow">↗</span>
+      </a>
 
-</main>
+      <a class="link-item bypass" href="https://bypass.zuot.cc/" target="_blank" rel="noopener">
+        <div class="link-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        </div>
+        <span class="link-label" data-name="AutoMod Bypasser" data-url="bypass.zuot.cc">AutoMod Bypasser</span>
+        <span class="link-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</div>
 <script type="text/javascript" src="script.js"></script>
-
 </body>
 </html>
