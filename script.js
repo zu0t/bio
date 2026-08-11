@@ -83,7 +83,7 @@ for (let i = 0; i < blokyNaStrance.length; i++) {
   }, 80 + (i * 100));
 }
 
-let discordId = '742377986774270042';
+let discordId = '1363507264903839905';
 let webSocketSpojeni;
 let intervalPingu;
 
@@ -201,3 +201,26 @@ function vykresliDiscordData(dataZApi) {
 }
 
 pripojLanyard();
+
+let modal = document.getElementById('terminated-modal');
+let closeBtn = document.getElementById('close-modal-btn');
+
+window.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    if (modal) modal.classList.add('active');
+  }, 400);
+});
+
+if (closeBtn) {
+  closeBtn.addEventListener('click', function() {
+    modal.classList.remove('active');
+  });
+}
+
+if (modal) {
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      modal.classList.remove('active');
+    }
+  });
+}
