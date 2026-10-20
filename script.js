@@ -83,7 +83,7 @@ for (let i = 0; i < blokyNaStrance.length; i++) {
   }, 80 + (i * 100));
 }
 
-let discordId = '1363507264903839905';
+let discordId = '1558147765110972509';
 let webSocketSpojeni;
 let intervalPingu;
 
